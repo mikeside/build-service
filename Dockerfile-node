@@ -1,0 +1,12 @@
+FROM node
+
+# 解决ll命令无效问题
+RUN echo "alias ll='ls -rltha'" >> ~/.bashrc && source ~/.bashrc
+
+RUN npm config set registry https://registry.npm.taobao.org
+
+RUN cd ~/ && mkdir .ssh && cd .ssh && echo '' | ssh-keygen
+
+ARG NODE_VERSION=stable
+RUN npm install -g n
+RUN n ${NODE_VERSION}
