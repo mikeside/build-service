@@ -1,0 +1,5 @@
+ARG MONGO_VERSION=latest
+FROM mongo:${MONGO_VERSION}
+
+# 修改解释器为bash（解决dash无法回退历史命令等问题）
+RUN echo no | dpkg-reconfigure dash
