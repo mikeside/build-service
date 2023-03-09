@@ -4,8 +4,8 @@ FROM laradock/php-fpm:latest-8.0
 MAINTAINER Mike mikehub@aliyun.com
 WORKDIR /var/www
 
-# 解决ll命令无效问题
-RUN echo "alias ll='ls -rltha'" >> ~/.bashrc && source ~/.bashrc
+# 修改解释器为bash（解决dash无法回退历史命令等问题）
+RUN echo no | dpkg-reconfigure dash
 
 # 更换源
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
