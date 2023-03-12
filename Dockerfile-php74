@@ -1,5 +1,5 @@
 # default install php7.4
-FROM laradock/php-fpm:latest-7.4
+FROM php:7.4-fpm
 
 MAINTAINER Mike mikehub@aliyun.com
 WORKDIR /var/www
@@ -45,6 +45,9 @@ RUN rm -rf v0.11.0.tar.gz  rabbitmq-c-0.11.0
 RUN echo y | pecl install http://pecl.php.net/get/swoole-4.8.12.tgz
 RUN docker-php-ext-enable swoole
 
+RUN docker-php-ext-install pcntl
+
+RUN docker-php-ext-install pdo_mysql
 
 
 

@@ -1,5 +1,5 @@
 # default install php8.0
-FROM laradock/php-fpm:latest-8.0
+FROM php:8.0-fpm
 
 MAINTAINER Mike mikehub@aliyun.com
 WORKDIR /var/www
@@ -45,3 +45,5 @@ RUN rm -rf v0.11.0.tar.gz  rabbitmq-c-0.11.0
 RUN echo y | pecl install swoole && docker-php-ext-enable swoole
 
 RUN docker-php-ext-install pcntl
+
+RUN docker-php-ext-install pdo_mysql
