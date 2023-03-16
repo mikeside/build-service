@@ -32,15 +32,19 @@ RUN pecl install igbinary && docker-php-ext-enable igbinary
 RUN apt-get install libzstd-dev -y
 RUN pecl install redis && docker-php-ext-enable redis
 
-RUN wget https://github.com/alanxz/rabbitmq-c/archive/refs/tags/v0.11.0.tar.gz
-RUN tar -zxvf v0.11.0.tar.gz
-RUN cd rabbitmq-c-0.11.0 && mkdir build && cd build \
+# install opessl
+RUN echo y | apt-get install libssl1.1=1.1.1n-0+deb11u3
+RUN echo y | apt-get install libssl-dev
+
+RUN wget https://github.com/alanxz/rabbitmq-c/archive/refs/tags/v0.13.0.tar.gz
+RUN tar -zxvf v0.13.0.tar.gz
+RUN cd rabbitmq-c-0.13.0 && mkdir build && cd build \
     && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/rabbitmq-c .. \
     && cmake --build . --target install
 RUN apt-get install librabbitmq-dev -y
 RUN echo "/usr/local/rabbitmq-c" | pecl install amqp \
     && docker-php-ext-enable amqp
-RUN rm -rf v0.11.0.tar.gz  rabbitmq-c-0.11.0
+RUN rm -rf v0.13.0.tar.gz rabbitmq-c-0.13.0
 
 RUN echo y | pecl install swoole && docker-php-ext-enable swoole
 
