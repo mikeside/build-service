@@ -3,3 +3,12 @@ FROM mariadb:${MARIADB_VERSION}
 
 # 修改解释器为bash（解决dash无法回退历史命令等问题）
 RUN echo no | dpkg-reconfigure dash
+
+# 更换源
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY config/sources.list /etc/apt
+RUN apt-get clean all && apt-get update -y
+
+RUN apt-get install vim -y \
+    && apt-get install mysql-client -y
+
